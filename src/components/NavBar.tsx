@@ -1,21 +1,23 @@
-"use client"
+"use client";
 import { useAuth } from "@/lib/AuthContextProvider";
-import {  Navbar,   NavbarBrand,   NavbarContent,   NavbarItem,   } from "@nextui-org/navbar";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+} from "@nextui-org/navbar";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
 import React, { useState, FormEvent } from "react";
 
-
-
 export default function NavBar() {
-  const router = useRouter()
-const [error, setError] = useState<string | null>(null);
-const {  logout } = useAuth();
-const { isAuthenticated }=useAuth()
-//const isAuthenticated=false
-
+  const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+  const { logout } = useAuth();
+  const { isAuthenticated } = useAuth();
+ 
 
   const handleLogOut = async (e: FormEvent) => {
     e.preventDefault();
@@ -28,7 +30,7 @@ const { isAuthenticated }=useAuth()
         }
       );
       if (response.status === 200) {
-       logout()
+        logout();
         router.push("/login");
       }
     } catch (error: any) {
@@ -41,12 +43,10 @@ const { isAuthenticated }=useAuth()
         );
       }
     }
-  
   };
   return (
     <Navbar className="bg-black text-white h-20">
       <NavbarBrand>
-       
         <p className="font-bold text-inherit">ACME</p>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
@@ -56,29 +56,27 @@ const { isAuthenticated }=useAuth()
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href='/tournament' aria-current="page">
+          <Link href="/tournament" aria-current="page">
             Tournaments
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href='/player'>
+          <Link color="foreground" href="/player">
             Players
           </Link>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-        {isAuthenticated ? (
+          {isAuthenticated ? (
             <button onClick={handleLogOut} className="text-white">
               Logout
             </button>
           ) : (
             <Link href="/login">Login</Link>
-          )} 
-          
+          )}
         </NavbarItem>
-        <NavbarItem>
-        </NavbarItem>
+        <NavbarItem></NavbarItem>
       </NavbarContent>
     </Navbar>
   );

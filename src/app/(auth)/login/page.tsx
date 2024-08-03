@@ -9,14 +9,12 @@ export default function () {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
- 
-  const {login,isAuthenticated}=useAuth()
 
+  const { login, isAuthenticated } = useAuth();
 
   const router = useRouter();
 
   const handleLogin = async (e: FormEvent) => {
- 
     e.preventDefault();
 
     try {
@@ -31,9 +29,10 @@ export default function () {
         }
       );
       if (response.status === 200) {
-        console.log("calling login function")
-        login()
-        console.log(isAuthenticated)
+        console.log(response)
+        console.log("calling login function");
+        login();
+        console.log(isAuthenticated);
         router.push("/tournament");
       }
     } catch (error: any) {
