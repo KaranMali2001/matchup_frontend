@@ -1,7 +1,7 @@
-"use client"
-import { useState, ChangeEvent, FormEvent } from 'react';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
+"use client";
+import { useState, ChangeEvent, FormEvent } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface User {
   first_name: string;
@@ -9,17 +9,17 @@ interface User {
   email: string;
   username: string;
   password: string;
-  role :string
+  role: string;
 }
 
 export default function () {
   const [user, setUser] = useState<User>({
-    first_name: '',
-    last_name: '',
-    email: '',
-    username: '',
-    password: '',
-    role:'',
+    first_name: "",
+    last_name: "",
+    email: "",
+    username: "",
+    password: "",
+    role: "",
   });
 
   const [error, setError] = useState<string | null>(null);
@@ -32,35 +32,40 @@ export default function () {
       last_name: user.last_name,
       email: user.email,
       username: user.username,
-      password: user.password
+      password: user.password,
     };
 
     try {
-      if(user.role=='player'){
-        const response = await axios.post('http://20.244.99.47:8080/player', userData);
-      if (response.status === 200) {
-        router.push('/login');
-      }
-       }
-       else{
-        const response=await axios.post('http://20.244.99.47:8080/organizer',userData)
-        if(response.status===200){
-          router.push('/login')
+      if (user.role == "player") {
+        const response = await axios.post(
+          "http://20.244.99.47:8080/player",
+          userData
+        );
+        if (response.status === 200) {
+          router.push("/login");
         }
-       }
-      
-      
+      } else {
+        const response = await axios.post(
+          "http://20.244.99.47:8080/organizer",
+          userData
+        );
+        if (response.status === 200) {
+          router.push("/login");
+        }
+      }
     } catch (error: any) {
-      setError(error.response?.data?.message || 'An error occurred. Please try again.');
+      setError(
+        error.response?.data?.message || "An error occurred. Please try again."
+      );
     }
-    console.log(userData)
+    console.log(userData);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setUser(prevState => ({
+    setUser((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -69,7 +74,12 @@ export default function () {
       <form onSubmit={handleClick}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <div className="w-full">
-            <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">First name</label>
+            <label
+              htmlFor="first_name"
+              className="block text-sm font-medium text-gray-700"
+            >
+              First name
+            </label>
             <input
               id="first_name"
               name="first_name"
@@ -81,7 +91,12 @@ export default function () {
             />
           </div>
           <div className="w-full">
-            <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">Last name</label>
+            <label
+              htmlFor="last_name"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Last name
+            </label>
             <input
               id="last_name"
               name="last_name"
@@ -95,7 +110,12 @@ export default function () {
         </div>
         <div className="flex flex-col space-y-2 mb-4">
           <div className="w-full">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Email
+            </label>
             <input
               id="email"
               name="email"
@@ -107,7 +127,12 @@ export default function () {
             />
           </div>
           <div className="w-full">
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
+            <label
+              htmlFor="username"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Username
+            </label>
             <input
               id="username"
               name="username"
@@ -119,7 +144,12 @@ export default function () {
             />
           </div>
           <div className="w-full">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
             <input
               id="password"
               name="password"
@@ -131,32 +161,30 @@ export default function () {
             />
           </div>
         </div>
-        {error && (
-          <div className="text-red-500 mb-4">
-            {error}
-          </div>
-        )}
+        {error && <div className="text-red-500 mb-4">{error}</div>}
         <div className="radio-container">
-  <input
-    type="radio"
-    id="user-role-option"
-    name="role"
-    value="org"
-    checked={user.role === "org"}
-    onChange={handleChange}
-  />
-  <label htmlFor="user-role-option">Organizer</label>
-  <input
-    type="radio"
-    id="player-role-option"
-    name="role"
-    value="player"
-    checked={user.role === "player"}
-    onChange={handleChange}
-     />
-  <label htmlFor="player-role-option">Player</label>
-</div>
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded">Sign Up</button>
+          <input
+            type="radio"
+            id="user-role-option"
+            name="role"
+            value="org"
+            checked={user.role === "org"}
+            onChange={handleChange}
+          />
+          <label htmlFor="user-role-option">Organizer</label>
+          <input
+            type="radio"
+            id="player-role-option"
+            name="role"
+            value="player"
+            checked={user.role === "player"}
+            onChange={handleChange}
+          />
+          <label htmlFor="player-role-option">Player</label>
+        </div>
+        <button type="submit" className="bg-blue-500 text-white p-2 rounded">
+          Sign Up
+        </button>
       </form>
     </div>
   );

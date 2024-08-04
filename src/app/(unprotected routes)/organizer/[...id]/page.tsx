@@ -4,9 +4,9 @@ import { GetOrganizerId } from "@/server-actions/GetOrgById";
 import { useParams } from "next/navigation";
 import React from "react";
 
-interface Organizer{
+interface Organizer {
   id: number;
-  }
+}
 
 export default function OrganizerComponent() {
   const params = useParams();
@@ -26,8 +26,6 @@ export default function OrganizerComponent() {
 
     fetchData();
   }, [id]);
-
-  
 
   if (typeof Data === "string") {
     return <div>{Data}</div>;

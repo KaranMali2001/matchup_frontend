@@ -2,7 +2,7 @@ import axios from "axios";
 
 import Link from "next/link";
 async function getTournament() {
-  const url =process.env.BACKEND_URL + "Tournament"
+  const url = process.env.BACKEND_URL + "Tournament";
   const response = await axios.get(url);
 
   return response.data;
@@ -11,7 +11,6 @@ export default async function Tournament() {
   const TournamentData = await getTournament();
   return (
     <div>
-      
       <ul>
         {TournamentData.map((Tournament: Tournament) => (
           <li
@@ -46,7 +45,6 @@ export default async function Tournament() {
           </li>
         ))}
       </ul>
-     
     </div>
   );
 }

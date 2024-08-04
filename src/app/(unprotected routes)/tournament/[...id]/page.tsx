@@ -3,13 +3,11 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import React from "react";
 
-interface Tournament{
+interface Tournament {
   id: number;
-  }
+}
 
 async function GetTournamentId(id: string) {
-
-
   const url = `http://20.244.99.47:8080/Tournament/${id}`;
   console.log(url);
 
@@ -44,8 +42,6 @@ export default function TournamentComponent() {
 
     fetchData();
   }, [id]);
-
-  
 
   if (typeof Data === "string") {
     return <div>{Data}</div>;

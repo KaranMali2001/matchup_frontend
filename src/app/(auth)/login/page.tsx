@@ -30,7 +30,6 @@ export default function () {
         }
       );
       if (response.status === 200) {
-       
         router.push("/profile");
 
         login();

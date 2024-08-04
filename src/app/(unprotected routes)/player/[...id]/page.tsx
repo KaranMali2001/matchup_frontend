@@ -6,9 +6,7 @@ import React from "react";
 
 interface Player {
   id: number;
-  }
-
-
+}
 
 export default function PlayerComponent() {
   const params = useParams();
@@ -18,7 +16,9 @@ export default function PlayerComponent() {
     return <div>Invalid player ID</div>;
   }
 
-  const [playerData, setPlayerData] = React.useState<Player | string | null>(null);
+  const [playerData, setPlayerData] = React.useState<Player | string | null>(
+    null
+  );
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -28,8 +28,6 @@ export default function PlayerComponent() {
 
     fetchData();
   }, [id]);
-
-  
 
   if (typeof playerData === "string") {
     return <div>{playerData}</div>;
