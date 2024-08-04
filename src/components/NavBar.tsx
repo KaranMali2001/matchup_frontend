@@ -17,13 +17,19 @@ export default function NavBar() {
   const [error, setError] = useState<string | null>(null);
   const { logout } = useAuth();
   const { isAuthenticated } = useAuth();
+  
+
  
 
   const handleLogOut = async (e: FormEvent) => {
     e.preventDefault();
     try {
+      console.log("backend URL:",process.env.BACKEND_URL)
+      const url ="http://localhost:8080/" + "logout"
+      console.log("final url:",url)
+    
       const response = await axios.get(
-        "http://20.244.99.47:8080/logout",
+        url,
 
         {
           withCredentials: true,

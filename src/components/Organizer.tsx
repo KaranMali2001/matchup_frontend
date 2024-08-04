@@ -2,7 +2,8 @@ import axios from "axios"
 import Link from "next/link"
 
 async function getOrganizer(){
-    const response=await axios.get("http://20.244.99.47:8080/org")
+  const url =process.env.BACKEND_URL + "org"
+    const response=await axios.get(url)
     
     return response.data
 }
@@ -27,7 +28,7 @@ const OrganizerData = await getOrganizer()
     </span>
     <span className="text-sm text-gray-300">ID: {Organizer.ID}</span>
     <span className="text-sm text-gray-300">Email: {Organizer.email}</span>
-    <Link href={`/organizer/get/${Organizer.ID}`}> click here for more details of org</Link>
+    <Link href={`/organizer/${Organizer.ID}`}> click here for more details of org</Link>
     
   </div>
 </li>

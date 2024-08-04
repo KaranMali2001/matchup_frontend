@@ -1,8 +1,15 @@
-import { AuthProvider } from "@/lib/AuthContextProvider";
-export const Providers=({children})=>{
+
+
+
+import { AuthProvider } from '@/lib/AuthContextProvider'; 
+
+export const Providers = ({ children }) => {
   return (
-    <AuthProvider>
-        {children }
-    </AuthProvider>
-  )
-}
+    <AuthProvider> 
+  
+        {children}
+     
+     
+</AuthProvider>
+  );
+};

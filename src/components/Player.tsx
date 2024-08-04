@@ -7,7 +7,10 @@ import Link from "next/link";
 
 async function getPlayer() {
   try {
-    const response = await axios.get("http://20.244.99.47:8080/player");
+    const url =process.env.BACKEND_URL + "player"
+    console.log(url)
+
+    const response = await axios.get(url);
     if (response.status === 200) {
       return response.data;
     } else {

@@ -1,30 +1,12 @@
 "use client";
-import axios from "axios";
+
+import { GetOrganizerId } from "@/server-actions/GetOrgById";
 import { useParams } from "next/navigation";
 import React from "react";
 
 interface Organizer{
   id: number;
   }
-
-async function GetOrganizerId(id: string) {
-  console.log(id);
-
-  const url = `http://20.244.99.47:8080/organizer/${id}`;
-  console.log(url);
-
-  try {
-    const response = await axios.get(url);
-    if (response.status === 200) {
-      return response.data as Organizer;
-    } else {
-      return response.statusText;
-    }
-  } catch (error) {
-    console.error("Error fetching data from backend:", error);
-    return "Error while fetching data from backend";
-  }
-}
 
 export default function OrganizerComponent() {
   const params = useParams();

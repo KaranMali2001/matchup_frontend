@@ -2,7 +2,8 @@ import axios from "axios";
 
 import Link from "next/link";
 async function getTournament() {
-  const response = await axios.get("http://20.244.99.47:8080/Tournament");
+  const url =process.env.BACKEND_URL + "Tournament"
+  const response = await axios.get(url);
 
   return response.data;
 }

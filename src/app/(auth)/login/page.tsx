@@ -1,5 +1,7 @@
 "use client";
+
 import { useAuth } from "@/lib/AuthContextProvider";
+
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
@@ -9,17 +11,16 @@ export default function () {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
-
-  const { login, isAuthenticated } = useAuth();
+  const { login } = useAuth();
 
   const router = useRouter();
-
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
 
     try {
+      const url = "http://localhost:8080/login";
       const response = await axios.post(
-        "http://20.244.99.47:8080/login",
+        url,
         {
           username: username,
           password: password,
@@ -29,11 +30,10 @@ export default function () {
         }
       );
       if (response.status === 200) {
-        console.log(response)
-        console.log("calling login function");
+       
+        router.push("/profile");
+
         login();
-        console.log(isAuthenticated);
-        router.push("/tournament");
       }
     } catch (error: any) {
       if (error.response?.status === 404) {
