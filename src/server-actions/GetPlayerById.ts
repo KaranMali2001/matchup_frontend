@@ -3,9 +3,9 @@ interface Player {
   id: number;
 }
 export async function getPlayerById(id: string) {
-  console.log(id);
+  
+  const url = process.env.BACKEND_URL + `player/` + id;
 
-  const url = `http://20.244.99.47:8080/player/${id}`;
   console.log(`Fetching from URL: ${url}`);
 
   try {

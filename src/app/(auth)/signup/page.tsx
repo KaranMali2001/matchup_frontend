@@ -2,6 +2,7 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { Port_Lligat_Sans } from "next/font/google";
 
 interface User {
   first_name: string;
@@ -12,7 +13,7 @@ interface User {
   role: string;
 }
 
-export default function () {
+export default function RegistrationForm() {
   const [user, setUser] = useState<User>({
     first_name: "",
     last_name: "",
@@ -34,31 +35,16 @@ export default function () {
       username: user.username,
       password: user.password,
     };
-
+  console.log(process.env.BACKEND_URL)
     try {
-      if (user.role == "player") {
-        const response = await axios.post(
-          "http://20.244.99.47:8080/player",
-          userData
-        );
-        if (response.status === 200) {
-          router.push("/login");
-        }
-      } else {
-        const response = await axios.post(
-          "http://20.244.99.47:8080/organizer",
-          userData
-        );
-        if (response.status === 200) {
-          router.push("/login");
-        }
+      const url = user.role === "player" ? "http://20.244.99.47:8080/player" : "http://20.244.99.47:8080/organizer";
+      const response = await axios.post(url, userData);
+      if (response.status === 200) {
+        router.push("/login");
       }
     } catch (error: any) {
-      setError(
-        error.response?.data?.message || "An error occurred. Please try again."
-      );
+      setError(error.response?.data?.message || "An error occurred. Please try again.");
     }
-    console.log(userData);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -69,123 +55,127 @@ export default function () {
     }));
   };
 
-  return (
-    <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
-      <form onSubmit={handleClick}>
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-          <div className="w-full">
-            <label
-              htmlFor="first_name"
-              className="block text-sm font-medium text-gray-700"
-            >
-              First name
-            </label>
-            <input
-              id="first_name"
-              name="first_name"
-              placeholder="Arushi"
-              type="text"
-              value={user.first_name}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-            />
-          </div>
-          <div className="w-full">
-            <label
-              htmlFor="last_name"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Last name
-            </label>
-            <input
-              id="last_name"
-              name="last_name"
-              placeholder="Khandelwal"
-              type="text"
-              value={user.last_name}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-            />
+  return (<div className="bg-zinc-700">
+    <section className="vh-100 gradient-custom">
+      <div className="container py-5 h-100">
+        <div className="row justify-content-center align-items-center h-100">
+          <div className="col-12 col-lg-9 col-xl-7">
+            <div className="card shadow-2-strong card-registration">
+              <div className="card-body p-4 p-md-5">
+                <h3 className="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+                {error && <div className="alert alert-danger">{error}</div>}
+                <form onSubmit={handleClick}>
+                  <div className="row">
+                    <div className="col-md-6 mb-4">
+                      <div className="form-outline">
+                        <input
+                          type="text"
+                          id="firstName"
+                          name="first_name"
+                          value={user.first_name}
+                          onChange={handleChange}
+                          className="form-control form-control-lg"
+                        />
+                        <label className="form-label" htmlFor="firstName">
+                          First Name
+                        </label>
+                      </div>
+                    </div>
+                    <div className="col-md-6 mb-4">
+                      <div className="form-outline">
+                        <input
+                          type="text"
+                          id="lastName"
+                          name="last_name"
+                          value={user.last_name}
+                          onChange={handleChange}
+                          className="form-control form-control-lg"
+                        />
+                        <label className="form-label" htmlFor="lastName">
+                          Last Name
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-6 mb-4">
+                      <div className="form-outline">
+                        <input
+                          type="email"
+                          id="emailAddress"
+                          name="email"
+                          value={user.email}
+                          onChange={handleChange}
+                          className="form-control form-control-lg"
+                        />
+                        <label className="form-label" htmlFor="emailAddress">
+                          Email
+                        </label>
+                      </div>
+                    </div>
+                    <div className="col-md-6 mb-4">
+                      <div className="form-outline">
+                        <input
+                          type="text"
+                          id="username"
+                          name="username"
+                          value={user.username}
+                          onChange={handleChange}
+                          className="form-control form-control-lg"
+                        />
+                        <label className="form-label" htmlFor="username">
+                          Username
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-6 mb-4">
+                      <div className="form-outline">
+                        <input
+                          type="password"
+                          id="password"
+                          name="password"
+                          value={user.password}
+                          onChange={handleChange}
+                          className="form-control form-control-lg"
+                        />
+                        <label className="form-label" htmlFor="password">
+                          Password
+                        </label>
+                      </div>
+                    </div>
+                    <div className="col-md-6 mb-4">
+                      <div className="form-outline">
+                        <input
+                          type="text"
+                          id="role"
+                          name="role"
+                          value={user.role}
+                          onChange={handleChange}
+                          className="form-control form-control-lg"
+                        />
+                        <label className="form-label" htmlFor="role">
+                          Role (player/organizer)
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-4 pt-2">
+                    <input
+                      type="submit"
+                      className="btn btn-primary btn-lg"
+                      value="Submit"
+                    />
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="flex flex-col space-y-2 mb-4">
-          <div className="w-full">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email
-            </label>
-            <input
-              id="email"
-              name="email"
-              placeholder="arushi@gmail.com"
-              type="email"
-              value={user.email}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-            />
-          </div>
-          <div className="w-full">
-            <label
-              htmlFor="username"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Username
-            </label>
-            <input
-              id="username"
-              name="username"
-              placeholder="arushi5599"
-              type="text"
-              value={user.username}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-            />
-          </div>
-          <div className="w-full">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              placeholder="********"
-              type="password"
-              value={user.password}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-            />
-          </div>
-        </div>
-        {error && <div className="text-red-500 mb-4">{error}</div>}
-        <div className="radio-container">
-          <input
-            type="radio"
-            id="user-role-option"
-            name="role"
-            value="org"
-            checked={user.role === "org"}
-            onChange={handleChange}
-          />
-          <label htmlFor="user-role-option">Organizer</label>
-          <input
-            type="radio"
-            id="player-role-option"
-            name="role"
-            value="player"
-            checked={user.role === "player"}
-            onChange={handleChange}
-          />
-          <label htmlFor="player-role-option">Player</label>
-        </div>
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-          Sign Up
-        </button>
-      </form>
+      </div>
+    </section>
     </div>
-  );
+    );
 }
+ 

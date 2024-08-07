@@ -4,10 +4,10 @@ interface Organizer {
 }
 
 export async function GetOrganizerId(id: string) {
-  console.log(id);
+  const url = process.env.BACKEND_URL + `organizer/` + id;
 
-  const url = `http://20.244.99.47:8080/organizer/${id}`;
-  console.log(url);
+
+  console.log(`Fetching from URL: ${url}`);
 
   try {
     const response = await axios.get(url);
