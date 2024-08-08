@@ -8,6 +8,16 @@ import {
 } from "@nextui-org/navbar";
 import Link from "next/link";
 import axios from "axios";
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarTrigger,
+} from "@/components/ui/menubar"
+
 import { useRouter } from "next/navigation";
 
 import React, { useState, FormEvent } from "react";
@@ -47,24 +57,24 @@ export default function NavBar() {
       }
     }
   };
-  return (
-    <Navbar className="bg-black text-white h-20">
+  return <>
+   <Navbar >
       <NavbarBrand>
         <p className="font-bold text-inherit">ACME</p>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link color="foreground" href="/organizer">
+          <Link className="text-white" href="/organizer">
             Organizers
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="/tournament" aria-current="page">
+          <Link className="text-white" href="/tournament" aria-current="page">
             Tournaments
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="/player">
+          <Link className="text-white" color="foreground" href="/player">
             Players
           </Link>
         </NavbarItem>
@@ -76,11 +86,10 @@ export default function NavBar() {
               Logout
             </button>
           ) : (
-            <Link href="/login">Login</Link>
+            <Link className="text-white" href="/login">Login</Link>
           )}
         </NavbarItem>
         <NavbarItem></NavbarItem>
       </NavbarContent>
     </Navbar>
-  );
-}
+  </>}
